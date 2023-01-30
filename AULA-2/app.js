@@ -72,6 +72,13 @@ entradaDados.question("Digite o nome do aluno: \n", function(nome) {
                                         *OU         ||(pipe)  OR
                                         *E          &&        AND
                                         *NEGAÇÃO    !         NOT
+
+                                        *Ordem de execução dos operadores lógicos
+                                        
+                                        *0° ()
+                                        *1° Negação
+                                        *2° E
+                                        *3° OU
                                      */
 
                     //Validação para tratar entradas vazias e caracteres errados
