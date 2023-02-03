@@ -23,6 +23,7 @@ entradaDados.question("Digite o primeiro número \n", function(numero1) {
 
     if (primeiroNumero == "" || primeiroNumero != Number(primeiroNumero)) {
         console.log("Erro: Digite um número")
+        entradaDados.close()
     } else {
         console.log(primeiroNumero)
         entradaDados.question("Digite o segundo número \n", function(numero2) {
@@ -31,11 +32,12 @@ entradaDados.question("Digite o primeiro número \n", function(numero1) {
 
             if (segundoNumero == "" || segundoNumero != Number(segundoNumero)) {
                 console.log("Erro: Digite um número")
+                entradaDados.close()
 
             } else {
 
 
-                entradaDados.question("Escolha a operação :\n" + "1" + "- Adição \n" + "2" + "- Subtração \n" + "3" + "- Divisão \n" + "4" + " - Multiplicação \n", function(simbolo) {
+                entradaDados.question("Escolha a operação :\n" + "1 - Adição \n" + "2 - Subtração \n" + "3 - Divisão \n" + "4 - Multiplicação \n", function(simbolo) {
 
                     let operação = simbolo
                     let adicao = parseFloat(primeiroNumero) + parseFloat(segundoNumero)
@@ -47,14 +49,19 @@ entradaDados.question("Digite o primeiro número \n", function(numero1) {
 
                     if (operação == 1) {
                         console.log("O resultado da adição é " + adicao)
+                        entradaDados.close()
                     } else if (operação == 2) {
                         console.log("O resultado da subtração é " + subtracao)
+                        entradaDados.close()
                     } else if (operação == 3) {
                         console.log("O resultado da divisão é " + divisao)
+                        entradaDados.close()
                     } else if (operação == 4) {
                         console.log("O resultado multiplicação é " + multiplicacao)
+                        entradaDados.close()
                     } else {
                         console.log("Erro: Por favor escolha uma das alternativas")
+                        entradaDados.close()
                     }
 
                 })
