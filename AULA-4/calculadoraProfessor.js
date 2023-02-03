@@ -42,28 +42,7 @@ entradaDados.question("Valor1: \n", function(numero1) {
             } else {
 
 
-                if (operacao == "SOMAR") {
-                    resultado = parseFloat(valor1) + parseFloat(valor2)
-                } else if (operacao == "SUBTRAIR") {
-                    resultado = parseFloat(valor2) - parseFloat(valor2)
-                } else if (operacao == "DIVIDIR") {
-                    if (valor2 == 0) {
-                        console.log("ERRO: Não é possível fazer uma divisão por zero")
-                        entradaDados.close()
-                    } else {
-                        resultado = parseFloat(valor1) / parseFloat(valor2)
-                    }
-                } else if (operacao == "MULTIPLICAR") {
-                    resultado = parseFloat(valor1) * parseFloat(valor2)
 
-                } else {
-                    console.log("Erro: A operação informada não é valida. Confira sua entrada.")
-                    entradaDados.close()
-                }
-                if (resultado != undefined) {
-                    console.log(resultado)
-                    entradaDados.close()
-                }
             }
         })
     })
