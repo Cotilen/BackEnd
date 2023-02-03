@@ -9,14 +9,14 @@
 function calcular(numero1, numero2, tipoCalculo) {
 
     let valor1 = Number(numero1)
-    let valor1 = Number(numero2)
+    let valor2 = Number(numero2)
     let operacao = tipoCalculo.toUpperCase()
     let resultado
 
     if (operacao == "SOMAR") {
         resultado = (valor1) + (valor2)
     } else if (operacao == "SUBTRAIR") {
-        resultado = valor2 - (valor2)
+        resultado = valor1 - valor2
     } else if (operacao == "DIVIDIR") {
         if (valor2 == 0) {
             console.log("ERRO: Não é possível fazer uma divisão por zero")

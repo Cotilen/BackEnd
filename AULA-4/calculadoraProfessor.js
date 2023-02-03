@@ -5,6 +5,10 @@
  * Versão: 1.0
  ******************************************************************/
 
+//Importe calculadora
+
+var matematica = require("./Modulo/calculadora.js")
+
 // Importe da biblioteca para entrada de dados
 var readline = require('readline')
 
@@ -41,7 +45,9 @@ entradaDados.question("Valor1: \n", function(numero1) {
                 console.log("Erro: Não é possível calcular sem a entrada de valores numéricos")
             } else {
 
+                resultado = matematica.calcular(valor1, valor2, operacao)
 
+                console.log(resultado)
 
             }
         })
