@@ -1,3 +1,5 @@
-#BackEnd
+# **BackEnd**
 
-Repositório para estudo da matéria de BackEnd
+## **SOBRE**
+
+- Repositório para o estudo da matéria de BackEnd utilizando o node.js
