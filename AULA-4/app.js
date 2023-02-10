@@ -39,7 +39,7 @@ entradaDados.question("Valor1: \n", function(numero1) {
 
             if (valor1 == "" || valor2 == "" || operacao == "") {
                 console.log("Erro: Não é possível calcular sem preencher todos os dados.")
-                entradaDados.close()
+                entradaDados.close
 
                 // Validação para verificar se os dados verificados são números
                 // Podemos uilizar o (isNaN ou typeof)
