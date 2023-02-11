@@ -1,3 +1,11 @@
+/*******************************************************************
+ * Objetivo: Criar um sistema que gerencie as médias escolares de uma 
+universidade
+ * Data: 10/02/23
+ * Autor: Cleiton
+ * Versão: 1.0
+ ******************************************************************/
+
 var calculos = require('./MODULO/calculadora')
 var readline = require('readline')
 
@@ -144,6 +152,7 @@ entradaDados.question('Digite o nome do aluno(a): \n', function(nome) {
 
                                                             if (resultadoExame == '' || resultadoExame < 0 || resultadoExame > 100 || isNaN(notaExame)) {
                                                                 console.log('ERRO: Digite um NÚMERO entre 0 e 100!')
+                                                                entradaDados.close()
                                                             } else {
                                                                 if (resultadoExame < 50) {
                                                                     console.log('*******Relatório do Aluno*******')
