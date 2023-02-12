@@ -5,30 +5,32 @@
  * Versão: 1.0
  ******************************************************************/
 
-const tabuada = function(valorMultiplicando, valorMultiplicador, valorInicio, valorFinal) {
+const tabuada = function(valorMultiplicandoInicio, valorMultiplicandoFinal, valorContadorInicio, valorContadorFinal) {
 
     let resultado
-    let multiplicando = Number(valorMultiplicando)
-    let multiplicador = Number(valorMultiplicador)
-    let contador = valorInicio
-    let fim = valorFinal
+    let multiplicando = valorMultiplicandoInicio
+    let multiplicandoFinal = valorMultiplicandoFinal
+    let inicioContador
+    let fimContador = valorContadorFinal
 
-    while (multiplicando <= multiplicador) {
+
+    while (multiplicando <= multiplicandoFinal) {
         console.log(`\n*********** Tabuada do ${multiplicando} *********** \n`)
 
-        for (let contador = valorInicio; contador <= fim; contador++) {
+        inicioContador = valorContadorInicio
+        while (inicioContador <= fimContador) {
+            resultado = multiplicando * inicioContador
 
-            resultado = multiplicando * contador
-            console.log(`${multiplicando} x ${contador} = ${resultado}`)
+            console.log(`${multiplicando} x ${inicioContador} = ${resultado}`)
+            inicioContador++
         }
-
-        multiplicando += 1
+        multiplicando++
 
     }
 
 
 }
 
-// console.log(tabuada(10, 20, 0, 15))
+// console.log(tabuada(5, 10, 5, 10))
 
 module.exports = { tabuada }
