@@ -21,9 +21,9 @@ entradaDados.question('Digite o nome do aluno(a): \n', function(nome) {
 
     let aluno = nome
 
-    entradaDados.question('Digite o sexo do aluno(a) [MASCULINO | FEMININO]: \n', function(sexo) {
+    entradaDados.question('Digite o sexo do aluno(a) [MASCULINO | FEMININO]: \n', function(sexo1) {
 
-        let sexoAluno = sexo.toUpperCase()
+        let sexoAluno = sexo1.toUpperCase()
 
 
 
@@ -67,8 +67,8 @@ entradaDados.question('Digite o nome do aluno(a): \n', function(nome) {
 
                                         let resultado = calculos.calcularMedia(nota_1, nota_2, nota_3, nota_4)
 
-                                        if (sexoAluno != 'FEMININO' || sexoProfessor != 'FEMININO' ||
-                                            sexoAluno != 'MASCULINO' || sexoProfessor != 'MASCULINO') {
+                                        if (sexoAluno != 'FEMININO' && sexoProfessor != 'FEMININO' &&
+                                            sexoAluno != 'MASCULINO' && sexoProfessor != 'MASCULINO') {
                                             console.log('ERRO: Por favor, digite apenas MASCULINO ou FEMININO')
                                         } else {
                                             if (nota_1 < 0 || nota_1 > 100 || isNaN(nota_1) ||
@@ -87,63 +87,35 @@ entradaDados.question('Digite o nome do aluno(a): \n', function(nome) {
                                                     if (resultado < 50) {
                                                         console.log('*******Relatório do Aluno*******')
                                                         console.log('\n')
-                                                        if (sexoAluno == 'FEMININO') {
+                                                        if (sexoAluno == 'FEMININO')
                                                             console.log(`A aluna ${aluno} foi reprovada na disciplina ${disciplina}.`)
-                                                            console.log(`Curso: ${ curso }\n`)
-                                                            if (sexoProfessor == 'FEMININO') {
-                                                                console.log(`Professora: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                            } else {
-                                                                console.log(`Professor: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                                entradaDados.close
-                                                            }
-                                                        } else {
+                                                        else
                                                             console.log(`O aluno ${aluno} foi reprovado na disciplina ${disciplina}.`)
-                                                            console.log(`Curso: ${ curso }\n`)
-                                                            if (sexoProfessor == 'FEMININO') {
-                                                                console.log(`Professora: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                            } else {
-                                                                console.log(`Professor: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                                entradaDados.close
-                                                            }
-                                                        }
+                                                        console.log(`Curso: ${ curso }`)
+                                                        if (sexoProfessor == 'FEMININO') {
+                                                            console.log(`Professora: ${ professor }`)
+                                                        } else
+                                                            console.log(`Professor: ${ professor }`)
+                                                        console.log(`Notas da aluna: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }`)
+                                                        console.log(`Média Final: ${resultado}`)
+                                                        entradaDados.close()
+
                                                     } else if (resultado >= 70) {
                                                         console.log('*******Relatório do Aluno*******')
                                                         console.log('\n')
-                                                        if (sexoAluno == 'FEMININO') {
+                                                        if (sexoAluno == 'FEMININO')
                                                             console.log(`A aluna ${aluno} foi APROVADA na disciplina ${disciplina}.`)
-                                                            console.log(`Curso: ${ curso }`)
-                                                            if (sexoProfessor == 'FEMININO') {
-                                                                console.log(`Professora: ${ professor }`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                            } else {
-                                                                console.log(`Professor: ${ professor }`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                                entradaDados.close
-                                                            }
-                                                        } else {
+                                                        else
                                                             console.log(`O aluno ${aluno} foi APROVADO na disciplina ${disciplina}.`)
-                                                            console.log(`Curso: ${ curso }\n`)
-                                                            if (sexoProfessor == 'FEMININO') {
-                                                                console.log(`Professora: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                            } else {
-                                                                console.log(`Professor: ${ professor }\n`)
-                                                                console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }\n`)
-                                                                console.log(`Média Final: ${resultado}`)
-                                                                entradaDados.close
-                                                            }
-                                                        }
+                                                        console.log(`Curso: ${ curso }`)
+                                                        if (sexoProfessor == 'FEMININO')
+                                                            console.log(`Professora: ${ professor }`)
+                                                        else
+                                                            console.log(`Professor: ${ professor }`)
+                                                        console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }`)
+                                                        console.log(`Média Final: ${resultado}`)
+                                                        entradaDados.close()
+
                                                     } else {
                                                         entradaDados.question('Digite a nota do exame:\n', function(valorExame) {
 
@@ -157,67 +129,37 @@ entradaDados.question('Digite o nome do aluno(a): \n', function(nome) {
                                                                 if (resultadoExame < 50) {
                                                                     console.log('*******Relatório do Aluno*******')
                                                                     console.log('\n')
-                                                                    if (sexoAluno == 'FEMININO') {
+                                                                    if (sexoAluno == 'FEMININO')
                                                                         console.log(`A aluna ${aluno} foi REPROVADO pelo exame na disciplina ${disciplina}.`)
-                                                                        console.log(`Curso: ${ curso }\n`)
-                                                                        if (sexoProfessor == 'FEMININO') {
-                                                                            console.log(`Professora: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                        } else {
-                                                                            console.log(`Professor: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                            console.log(`Média final Exame: ${resultadoExame}`)
-                                                                            entradaDados.close
-                                                                        }
-                                                                    } else {
+                                                                    else
                                                                         console.log(`O aluno ${aluno} foi REPROVADO pelo exame na disciplina ${disciplina}.`)
-                                                                        console.log(`Curso: ${ curso }\n`)
-                                                                        if (sexoProfessor == 'FEMININO') {
-                                                                            console.log(`Professora: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                        } else {
-                                                                            console.log(`Professor: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                            console.log(`Média final Exame: ${resultadoExame}`)
-                                                                            entradaDados.close
-                                                                        }
-                                                                    }
+                                                                    console.log(`Curso: ${ curso }`)
+                                                                    if (sexoProfessor == 'FEMININO')
+                                                                        console.log(`Professora: ${ professor }\n`)
+                                                                    else
+                                                                        console.log(`Professor: ${ professor }\n`)
+                                                                    console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
+                                                                    console.log(`Média Final: ${resultado}`)
+                                                                    console.log(`Média final Exame: ${resultadoExame}`)
+                                                                    entradaDados.close()
+
                                                                 } else {
                                                                     console.log('*******Relatório do Aluno*******')
                                                                     console.log('\n')
-                                                                    if (sexoAluno == 'FEMININO') {
+                                                                    if (sexoAluno == 'FEMININO')
                                                                         console.log(`A aluna ${aluno} foi APROVADA pelo exame na disciplina ${disciplina}.`)
-                                                                        console.log(`Curso: ${ curso }\n`)
-                                                                        if (sexoProfessor == 'FEMININO') {
-                                                                            console.log(`Professora: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                        } else {
-                                                                            console.log(`Professor: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                            console.log(`Média final Exame: ${resultadoExame}`)
-                                                                            entradaDados.close
-                                                                        }
-                                                                    } else {
+                                                                    else
                                                                         console.log(`O aluno ${aluno} foi APROVADO pelo exame na disciplina ${disciplina}.`)
-                                                                        console.log(`Curso: ${ curso }\n`)
-                                                                        if (sexoProfessor == 'FEMININO') {
-                                                                            console.log(`Professora: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                        } else {
-                                                                            console.log(`Professor: ${ professor }\n`)
-                                                                            console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
-                                                                            console.log(`Média Final: ${resultado}`)
-                                                                            console.log(`Média final Exame: ${resultadoExame}`)
-                                                                            entradaDados.close
-                                                                        }
-                                                                    }
+                                                                    console.log(`Curso: ${ curso }\n`)
+                                                                    if (sexoProfessor == 'FEMININO')
+                                                                        console.log(`Professora: ${ professor }\n`)
+                                                                    else
+                                                                        console.log(`Professor: ${ professor }\n`)
+                                                                    console.log(`Notas do aluno: ${ nota_1 }, ${ nota_2 }, ${ nota_3 }, ${ nota_4 }, Exame: ${notaExame}\n`)
+                                                                    console.log(`Média Final: ${resultado}`)
+                                                                    console.log(`Média final Exame: ${resultadoExame}`)
+                                                                    entradaDados.close()
+
                                                                 }
                                                             }
                                                         })

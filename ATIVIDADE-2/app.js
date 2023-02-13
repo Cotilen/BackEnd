@@ -49,7 +49,7 @@ entradaDados.question('Digite o número inicial da tabuada [ENTRE 2 E 100]: \n',
                         entradaDados.close()
 
                     } else {
-                        console.log(calculos.tabuada(tabuadaInicial, tabuadaFinal, contadorInicial, contadorFinal))
+                        calculos.tabuada(tabuadaInicial, tabuadaFinal, contadorInicial, contadorFinal)
                         entradaDados.close()
                     }
 

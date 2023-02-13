@@ -30,10 +30,8 @@ const calcularMedia = function(valor1, valor2, valor3, valor4) {
     let media = (Number(nota_1) + Number(nota_2) + Number(nota_3) + Number(nota_4)) / 4
 
     return media
-
-
 }
 
 
-module.exports = { calcularMedia }
-module.exports = { calcularMediaExame }
+module.exports = { calcularMedia, calcularMediaExame }
+    // module.exports = { calcularMediaExame }
