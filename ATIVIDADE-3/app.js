@@ -39,7 +39,7 @@ entradaDados.question('Digite o numero inicial [ENTRE 0 E 500]:\n', function(val
                 entradaDados.close()
 
             } else {
-                entradaDados.question('Você deseja calcular como?\n ' + '1) Somente pares\n' + '2) Somente Ímpares\n' + '3) Ambos', function(value) {
+                entradaDados.question('Você deseja calcular como?\n' + '1) Somente pares\n' + '2) Somente Ímpares\n' + '3) Ambos\n', function(value) {
 
                     separacao.parImpar(valorMin, valorMax, value)
                     entradaDados.close()
