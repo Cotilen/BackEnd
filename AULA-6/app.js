@@ -109,13 +109,15 @@ const removerElemento = function(nomeProduto) {
 
     //splice - Permite remover um elemento do array, pelo indice
     if (indice >= 0) {
-
         novosProdutos.splice(indice, 1)
-        return novosProdutos
+        status = true
     } else {
         status = false
     }
-    return status
+    if (status == true) {
+        return novosProdutos
+    } else
+        return status
 }
 
 console.log(removerElemento('Monitor'));
