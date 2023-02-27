@@ -1,5 +1,5 @@
 /*******************************************************************
- * Objetivo: Trabalhando com Array
+ * Objetivo: Trabalhando com Array e Json
  * Data: 24/02/23
  * Autor: Cleiton
  * Versão: 1.0
@@ -10,6 +10,21 @@
 
 const listaDeNomes = ['José', 'Maria', 'Luiz', 'Carlos', 'Dagoberto']
 const listaProdutos = ['Teclado', 'Mouse', 'Monitor', 'Computador', 'Fone', 'Impressora', 'Scanner', 'Web-Cam']
+const listaProdutosJson = {}
+
+/*
+
+    Exemplo de JSON com estrututra de array
+
+produtos = {
+            [ 
+                {nome : "Teclado", cor: "Preto", quantidade: 50},
+                {nome : "Monitor", cor: "Branco", quantidade: 30},
+                {nome : "Mouse", cor: "Branco", quantidade: 200}
+            ]
+        }
+*/
+
 
 //Forma ERRADA de maniplar um conjunto de dados
 
@@ -101,10 +116,10 @@ const filtrandoElementos = function() {
     console.log(novosProdutos);
 }
 
-const removerElemento = function(nomeProduto) {
-    let nome = nomeProduto
-    const novosProdutos = listaProdutos.slice()
-    let indice = listaProdutos.indexOf(nome)
+const removerElemento = function(array, nomeItem) {
+    let nome = nomeItem
+    const novosProdutos = array.slice()
+    let indice = array.indexOf(nome)
     let status
 
     //splice - Permite remover um elemento do array, pelo indice
@@ -120,4 +135,103 @@ const removerElemento = function(nomeProduto) {
         return status
 }
 
-console.log(removerElemento('Monitor'));
+const listagemProdutos = function() {
+    let listProdutosJSON = {}
+
+
+    let listProdutos = [
+        { nome: 'Teclado DELL', valor: 200, quantidade: 50 },
+        { nome: 'Monitor DELL', valor: 1000, quantidade: 70 },
+        { nome: 'Mouse DELL', valor: 100, quantidade: 350 }
+    ]
+
+    let listCores = ['Branco', 'Preto', 'Cinza']
+    let listTipoTeclados = ['Mecanico', 'Semi-Mecanico', 'Membrana']
+    let listTipoMonitores = ['LCD ', 'Full-HD', '4K', 'OLED']
+
+    //Adiciona chaves (opções) no Teclado
+    listProdutos[0].cores = listCores
+    listProdutos[0].tipo = listTipoTeclados
+
+    //Adiciona chaves (opções) no Monitor
+    listProdutos[1].cores = listCores
+    listProdutos[1].tipo = listTipoMonitores
+
+    //Adiciona chaves (opções) no Mouse
+    listProdutos[2].cores = listCores
+
+    //Adiciona uma chave produtos e coloca toda a estrutura dos produtos dentro dela
+    listProdutosJSON.produtos = listProdutos
+
+    // listaProdutosJson.produtos = listaProdutos
+    // listaProdutosJson.clientes = listaDeNomes
+
+    // console.log(listaProdutosJson.clientes);
+    // console.log(listaProdutosJson.produtos);
+    console.log(listProdutosJSON.produtos);
+
+    // console.log(listProdutosJSON.produtos[1].nome);
+    // console.log(listProdutosJSON.produtos[1].valor);
+    // console.log(listProdutosJSON.produtos[1].cores[1]);
+
+
+    // Minha resolução
+
+    // let qtdeItensFor = listProdutosJSON.produtos.length
+    // let cont = 0
+    // listProdutosJSON.produtos.forEach(dadosProduto => {
+    //     console.log('Nome:' + dadosProduto.nome);
+    //     console.log('Valor:' + dadosProduto.valor);
+    //     console.log('Cores:');
+
+    //     for (let conti = 0; conti < qtdeItensFor; conti += 1)
+
+    //         if (dadosProduto.cores != undefined)
+    //             console.log(listProdutosJSON.produtos[cont].cores[conti])
+    //         else {
+    //             console.log('Esse produto não possui cores');
+    //             break
+    //         }
+    //     console.log('Tipos:');
+
+    //     for (let conti = 0; conti < qtdeItensFor; conti += 1)
+    //         if (dadosProduto.tipo != undefined)
+    //             console.log(listProdutosJSON.produtos[cont].tipo[conti]);
+    //         else {
+    //             console.log('Esse item não possui tipos');
+    //             break
+    //         }
+    //     console.log();
+
+    // Resolução Professor
+
+    //Retorna todos os dados de produto (1º nível de dados do JSON)
+    listProdutosJSON.produtos.forEach(dadosProduto => {
+        console.log('Nome:' + dadosProduto.nome);
+        console.log('Valor:' + dadosProduto.valor);
+
+        //Validação para tratar quando não existe cores de produto
+        if (dadosProduto.cores != undefined) {
+
+            //Retorna todas as cores existentes de cada produto
+            dadosProduto.cores.forEach(dadosCores => {
+                console.log('***' + dadosCores)
+            })
+        }
+
+        //Validação para tratar quando não existe tipos de produto
+        if (dadosProduto.tipo != undefined) {
+
+            //Retorna todas os tipos existentes de cada produto
+            dadosProduto.tipo.forEach(dadosTipo => {
+                console.log('****' + dadosTipo);
+
+            })
+        }
+    });
+
+}
+
+listagemProdutos()
+
+// console.log(removerElemento(listaProdutos, 'Monitor'));
