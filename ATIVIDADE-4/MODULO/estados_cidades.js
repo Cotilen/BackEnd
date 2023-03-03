@@ -22490,7 +22490,6 @@ function getListaDeEstados() {
 function getDadosEstado(siglaEstado) {
 
     let listaEstadosJson = {}
-    let sigla = siglaEstado
     let status = false
 
     estadosCidades.estados.forEach(estadosForEach =>{
@@ -22514,7 +22513,54 @@ function getDadosEstado(siglaEstado) {
             return status
 
 }
-// console.log(getDadosEstado("MT"));
+// console.log(getDadosEstado("MG"));
 
+function getCapitalEstado(siglaEstado) {
+
+    let listaEstadosJson = {}
+    let status = false
+
+    estadosCidades.estados.forEach(estadosForEach =>{
+
+        if(siglaEstado == estadosForEach.regiao){
+
+            listaEstadosJson.uf = estadosForEach.sigla
+            listaEstadosJson.descricao = estadosForEach.nome
+            listaEstadosJson.capital = estadosForEach.capital
+            status = true
+        }
+         
+
+            
+    })
+   
+        if(status == true)
+            return listaEstadosJson
+        else
+            return status
+
+}
+// console.log(getCapitalEstado('AC'));
+
+function getEstadosRegiao(regiao) {
+
+    let listaEstadosJson = {}
+    let lista = []
+
+    estadosCidades.estados.forEach(estadosForEach =>{
+
+        if(regiao == estadosForEach.regiao){
+
+            lista.push({uf:estadosForEach.sigla, descricao: estadosForEach.nome})
+        }
+    })
+    listaEstadosJson.estados = lista
+
+
+    return (listaEstadosJson.estados).length != 0 ? listaEstadosJson : false
+
+}
+
+console.log(getEstadosRegiao("Su"));
 
 
