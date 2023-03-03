@@ -229,6 +229,8 @@ const listagemProdutos = function() {
             })
         }
     });
+    console.log(listProdutosJSON.produtos);
+
 
 }
 
