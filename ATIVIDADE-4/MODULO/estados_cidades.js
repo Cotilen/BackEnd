@@ -22580,9 +22580,34 @@ function getCapitalPais() {
                 capital_pais_ano_inicio: estadosForEach.capital_pais.ano_inicio,
                 capital_pais_ano_termino: estadosForEach.capital_pais.ano_fim
             })
-        listaEstadosJson = lista
+        listaEstadosJson.capitais = lista
     })
-    return listaEstadosJson
+    return lista.length != 0 ? listaEstadosJson : false
+
+
 }
 
-console.log(getCapitalPais());
+// console.log(getCapitalPais());
+
+function getCidades(siglaEstado) {
+
+    let listaEstadosJson = {}
+    let lista = []
+
+    estadosCidades.estados.forEach(estadosForEach => {
+
+        if (siglaEstado == estadosForEach.sigla) {
+            listaEstadosJson.uf = estadosForEach.sigla
+            listaEstadosJson.descricao = estadosForEach.nome
+            listaEstadosJson.quantidade_cidades = estadosForEach.cidades.length
+            estadosForEach.cidades.forEach(cidadesForEach => {
+                lista.push(cidadesForEach.nome)
+            })
+            listaEstadosJson.cidades = lista
+
+        }
+    })
+    return lista.length != 0 ? listaEstadosJson : false
+}
+
+console.log(getCidades('C'));
