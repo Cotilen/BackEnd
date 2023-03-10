@@ -22561,7 +22561,7 @@ function getEstadosRegiao(regiao) {
 
 }
 
-// console.log(getEstadosRegiao("Su"))
+// console.log(getEstadosRegiao("ul"))
 
 function getCapitalPais() {
 
@@ -22610,4 +22610,4 @@ function getCidades(siglaEstado) {
     return lista.length != 0 ? listaEstadosJson : false
 }
 
-console.log(getCidades('C'));
+// console.log(getCidades('AM'));
