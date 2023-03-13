@@ -22548,7 +22548,7 @@ function getEstadosRegiao(regiao) {
 
     let listaEstadosJson = {}
     let lista = []
-    let regiaoBrasil = regiao[0].toUpperCase() + regiao.substring(1)
+    let regiaoBrasil = regiao[0].toUpperCase() + regiao.substring(1).toLowerCase()
 
     estadosCidades.estados.forEach(estadosForEach => {
 
