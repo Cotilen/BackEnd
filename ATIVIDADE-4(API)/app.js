@@ -31,6 +31,7 @@ const bodyParser = require('body-parser')
 //Cria um objeto ck=om as informações da classe express
 const app = express()
 
+//Defie as permissões no header da API
 app.use((request, response, next) => {
     //Permite gerenciar a origen das requisiçõe da API
     //* - significa que a API será pública
@@ -40,7 +41,7 @@ app.use((request, response, next) => {
     //Permite gerenciar quais verbos (métodos) poderão fazer requisições
     response.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, OPTIONS')
 
-    //Ativa no cors das requisições as permissões estabellecidas
+    //Ativa no cors das requisições as permissões estabelecidas
     app.use(cors())
 
     next()
@@ -48,17 +49,151 @@ app.use((request, response, next) => {
 
 //endPoints
 
+//Import do arquivo de funções
+const estadosCidades = require('./MODULO/estados_cidades.js')
+
+
 //endPoint para listar os Estados
 app.get('/estados', cors(), async function(request, response, next) {
 
-    const estadosCidades = require('./MODULO/estados_cidades.js')
 
+
+    //Chama a função que retorna os estados
     let listaDeEstados = estadosCidades.getListaDeEstados()
 
+    //Tratamento para validar se a função realizou o processamento
+    if (listaDeEstados) {
+        //Retorna o Json e o Status code
+        response.json(listaDeEstados)
+        response.status(200)
+    } else
+        response.status(500)
 
-    response.json(listaDeEstados)
-    response.status(200)
+})
 
+
+//endPoint: Lista as características do estado pela sigla
+app.get('/estado/sigla/:uf', cors(), async function(request, response, next) {
+    //:uf - é uma variável que será utilizada para passagens de valores, na URL da requisição
+
+    //Recebe o valor da variável uf que será encaminhada na URL da requisição
+    let siglaEstado = request.params.uf
+    let statusCode
+    let dadosEstado = {}
+
+    //Tratamento para vaidar os valores encaminhados no parâmetro
+    if (siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)) {
+        statusCode = 400
+        dadosEstado.message = ("Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres(2 digitos)")
+    } else {
+        //chama a função que filtra o estado pela sigla
+        let estado = estadosCidades.getDadosEstado(siglaEstado)
+            //valida se houve retorno válido da funçao
+        if (estado) {
+            statusCode = 200
+            dadosEstado = estado
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(dadosEstado)
+})
+
+app.get('/estado/capital/sigla/:uf', cors(), async function(request, response, next) {
+
+    //:uf - é uma variável que será utilizada para passagens de valores, na URL da requisição
+
+    //Recebe o valor da variável uf que será encaminhada na URL da requisição
+    let siglaEstado = request.params.uf
+    let statusCode
+    let capitalEstado = {}
+
+    //Tratamento para vaidar os valores encaminhados no parâmetro
+    if (siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)) {
+        statusCode = 400
+        capitalEstado.message = ("Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres(2 digitos)")
+    } else {
+        //chama a função que filtra o estado pela sigla
+        let estado = estadosCidades.getCapitalEstado(siglaEstado)
+            //valida se houve retorno válido da funçao
+        if (estado) {
+            statusCode = 200
+            capitalEstado = estado
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(capitalEstado)
+})
+
+app.get('/estados/regiao/:regiao', cors(), async function(request, response, next) {
+
+    let regiao = request.params.regiao
+    let statusCode
+    let regiaoEstados = {}
+
+    if (regiao == '' || regiao == undefined || !isNaN(regiao)) {
+        statusCode = 400
+        regiaoEstados.message = ("Não é possível processar a requisição pois a região não foi informada")
+    } else {
+        let estados = estadosCidades.getEstadosRegiao(regiao)
+
+        if (estados) {
+            statusCode = 200
+            regiaoEstados = estados
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(regiaoEstados)
+})
+
+app.get('/estados/capital/pais', cors(), async function(request, response, next) {
+
+    let statusCode
+    let capitalPais = {}
+
+
+    let capital = estadosCidades.getCapitalPais()
+
+    if (capital) {
+        statusCode = 200
+        capitalPais = capital
+    } else {
+        statusCode = 404
+    }
+    response.status(statusCode)
+    response.json(capitalPais)
+})
+
+app.get('/estados/cidades/sigla/:uf', cors(), async function(request, response, next) {
+
+    let sigla = request.params.uf
+    let statusCode
+    let cidades = {}
+
+    if (sigla == '' || sigla == undefined || !isNaN(sigla) || sigla.length != 2) {
+        statusCode = 400
+        cidades.message = ("Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres(2 digitos)")
+    } else {
+        let estados = estadosCidades.getCidades(sigla)
+
+        if (estados) {
+            statusCode = 200
+            cidades = estados
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(cidades)
 })
 
 //Permite carregar os endPoints criados e aguardar as requisições 

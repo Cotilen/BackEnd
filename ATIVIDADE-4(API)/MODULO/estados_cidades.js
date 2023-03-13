@@ -22470,18 +22470,18 @@ var estadosCidades = {
 function getListaDeEstados() {
     let listaEstadosJson = {}
 
-    let listEstados = []
+    let lista = []
 
     estadosCidades.estados.forEach(estadosForEach => {
 
-        listEstados.push(estadosForEach.sigla)
+        lista.push(estadosForEach.sigla)
 
 
     })
-    listaEstadosJson.uf = listEstados
-    listaEstadosJson.quantidade = listEstados.length
+    listaEstadosJson.uf = lista
+    listaEstadosJson.quantidade = lista.length
 
-    return listaEstadosJson
+    return lista.length != 0 ? listaEstadosJson : false
 
 }
 // console.log(getListaDeEstados())
@@ -22491,10 +22491,11 @@ function getDadosEstado(siglaEstado) {
 
     let listaEstadosJson = {}
     let status = false
+    let sigla = siglaEstado.toUpperCase()
 
     estadosCidades.estados.forEach(estadosForEach => {
 
-        if (siglaEstado == estadosForEach.sigla) {
+        if (sigla == estadosForEach.sigla) {
 
             listaEstadosJson.uf = estadosForEach.sigla
             listaEstadosJson.descricao = estadosForEach.nome
@@ -22513,16 +22514,17 @@ function getDadosEstado(siglaEstado) {
         return status
 
 }
-// console.log(getDadosEstado("MG"));
+// console.log(getDadosEstado("mg"));
 
 function getCapitalEstado(siglaEstado) {
 
     let listaEstadosJson = {}
     let status = false
+    let sigla = siglaEstado.toUpperCase()
 
     estadosCidades.estados.forEach(estadosForEach => {
 
-        if (siglaEstado == estadosForEach.regiao) {
+        if (sigla == estadosForEach.sigla) {
 
             listaEstadosJson.uf = estadosForEach.sigla
             listaEstadosJson.descricao = estadosForEach.nome
@@ -22540,16 +22542,17 @@ function getCapitalEstado(siglaEstado) {
         return status
 
 }
-// console.log(getCapitalEstado('AC'));
+// console.log(getCapitalEstado('aC'));
 
 function getEstadosRegiao(regiao) {
 
     let listaEstadosJson = {}
     let lista = []
+    let regiaoBrasil = regiao[0].toUpperCase() + regiao.substring(1)
 
     estadosCidades.estados.forEach(estadosForEach => {
 
-        if (regiao == estadosForEach.regiao) {
+        if (regiaoBrasil == estadosForEach.regiao) {
 
             lista.push({ uf: estadosForEach.sigla, descricao: estadosForEach.nome })
         }
@@ -22591,12 +22594,13 @@ function getCapitalPais() {
 
 function getCidades(siglaEstado) {
 
+    let sigla = siglaEstado.toUpperCase()
     let listaEstadosJson = {}
     let lista = []
 
     estadosCidades.estados.forEach(estadosForEach => {
 
-        if (siglaEstado == estadosForEach.sigla) {
+        if (sigla == estadosForEach.sigla) {
             listaEstadosJson.uf = estadosForEach.sigla
             listaEstadosJson.descricao = estadosForEach.nome
             listaEstadosJson.quantidade_cidades = estadosForEach.cidades.length
