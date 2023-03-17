@@ -54,7 +54,7 @@ const estadosCidades = require('./MODULO/estados_cidades.js')
 
 
 //endPoint para listar os Estados
-app.get('/estados', cors(), async function(request, response, next) {
+app.get('/v1/senai/estados', cors(), async function(request, response, next) {
 
 
 
@@ -73,7 +73,7 @@ app.get('/estados', cors(), async function(request, response, next) {
 
 
 //endPoint: Lista as características do estado pela sigla
-app.get('/estado/sigla/:uf', cors(), async function(request, response, next) {
+app.get('/v1/senai/estado/sigla/:uf', cors(), async function(request, response, next) {
     //:uf - é uma variável que será utilizada para passagens de valores, na URL da requisição
 
     //Recebe o valor da variável uf que será encaminhada na URL da requisição
@@ -101,7 +101,7 @@ app.get('/estado/sigla/:uf', cors(), async function(request, response, next) {
     response.json(dadosEstado)
 })
 
-app.get('/estado/capital/sigla/:uf', cors(), async function(request, response, next) {
+app.get('/v1/senai/estado/capital/sigla/:uf', cors(), async function(request, response, next) {
 
     //:uf - é uma variável que será utilizada para passagens de valores, na URL da requisição
 
@@ -130,7 +130,7 @@ app.get('/estado/capital/sigla/:uf', cors(), async function(request, response, n
     response.json(capitalEstado)
 })
 
-app.get('/estados/regiao/:regiao', cors(), async function(request, response, next) {
+app.get('/v1/senai/estados/regiao/:regiao', cors(), async function(request, response, next) {
 
     let regiao = request.params.regiao
     let statusCode
@@ -154,7 +154,7 @@ app.get('/estados/regiao/:regiao', cors(), async function(request, response, nex
     response.json(regiaoEstados)
 })
 
-app.get('/estados/capital/pais', cors(), async function(request, response, next) {
+app.get('/v1/senai/estados/capital/pais', cors(), async function(request, response, next) {
 
     let statusCode
     let capitalPais = {}
@@ -172,7 +172,8 @@ app.get('/estados/capital/pais', cors(), async function(request, response, next)
     response.json(capitalPais)
 })
 
-app.get('/estados/cidades/sigla/:uf', cors(), async function(request, response, next) {
+//  EndPoint feito por mim
+app.get('/v1/senai/estados/cidades/sigla/:uf', cors(), async function(request, response, next) {
 
     let sigla = request.params.uf
     let statusCode
@@ -196,9 +197,84 @@ app.get('/estados/cidades/sigla/:uf', cors(), async function(request, response, 
     response.json(cidades)
 })
 
+//EndPoint: Lista de cidades filtrada pela sigla do estado
+app.get('/v1/senai/cidades', cors(), async function(request, response, next) {
+
+    //Recebe o valr da variável que ser enviada por QueryString
+    //Ex: www.uol.com.br?uf=sp&cep=8547423&nome=vaiola
+    /*
+     * 
+     *  Usamos a query para receber diversas variaveis para realizar filtros
+     *  Usamos o params para reveber ID (PK), geralmente
+     *          para fazer PUT, DELETE, GET
+     * 
+     */
+
+    let siglaEstado = request.query.uf
+    let statusCode
+    let dadosCidades = {}
+
+    if (siglaEstado == '' || siglaEstado == undefined || !isNaN(siglaEstado) || siglaEstado.length != 2) {
+        statusCode = 400
+        dadosCidades.message = ("Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres(2 digitos)")
+    } else {
+        let estados = estadosCidades.getCidades(siglaEstado)
+
+        if (estados) {
+            statusCode = 200
+            dadosCidades = estados
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(dadosCidades)
+
+})
+
+//EndPoint versão 2: Lista de cidade filtrada pela sigla do estado com mais detelhes
+app.get('/v2/senai/cidades', cors(), async function(request, response, next) {
+
+    //Recebe o valr da variável que ser enviada por QueryString
+    //Ex: www.uol.com.br?uf=sp&cep=8547423&nome=vaiola
+    /*
+     * 
+     *  Usamos a query para receber diversas variaveis para realizar filtros
+     *  Usamos o params para reveber ID (PK), geralmente
+     *          para fazer PUT, DELETE, GET
+     * 
+     */
+
+    let siglaEstado = request.query.uf
+    let statusCode
+    let dadosCidades = {}
+
+    if (siglaEstado == '' || siglaEstado == undefined || !isNaN(siglaEstado) || siglaEstado.length != 2) {
+        statusCode = 400
+        dadosCidades.message = ("Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres(2 digitos)")
+    } else {
+        let estados = estadosCidades.getCidades(siglaEstado)
+
+        if (estados) {
+            statusCode = 200
+            dadosCidades = estados
+        } else {
+            statusCode = 404
+        }
+    }
+
+    response.status(statusCode)
+    response.json(dadosCidades)
+
+})
+
+
 //Permite carregar os endPoints criados e aguardar as requisições 
 //pelo protocolo HTTP na porta 8080
 app.listen(8080, function() {
+
+
     console.log('Servidor aguardando requisições na porta 8080');
 
 })
