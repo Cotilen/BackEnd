@@ -1,13 +1,9 @@
 const whatsapp = require('./contatos')
 
-console.log(whatsapp.contatos["whats-users"][2].contacts);
+const getContatos = function(id) {
 
+    return whatsapp.contatos["whats-users"][id].contacts
 
-// const getContatos = function(id) {
+}
 
-//     let listaContatos = {}
-//     let lista = []
-
-
-
-// }
+// getContatos(1)
