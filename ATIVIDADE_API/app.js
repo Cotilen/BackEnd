@@ -5,6 +5,9 @@
  * Versão: 1.0
  */
 
+var whatsapp = require('./MODEL/functions.js')
+
+console.log(whatsapp.getContatos(1));
 
 //Import das dependências para criar API
 
@@ -20,3 +23,7 @@ const bodyParser = require('body-parser')
 
 //Cria um objeto ck=om as informações da classe express
 const app = express()
+
+
+
+

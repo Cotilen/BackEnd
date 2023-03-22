@@ -1,9 +1,17 @@
 const whatsapp = require('./contatos')
 
 const getContatos = function(id) {
+    let contatosUsers = {}
 
-    return whatsapp.contatos["whats-users"][id].contacts
+    contatosUsers.contatos = whatsapp.contatos["whats-users"][id].contacts
+    // console.log(whatsapp.contatos["whats-users"][id].contacts);
+
+    return contatosUsers
 
 }
 
 // getContatos(1)
+
+module.exports = {
+    getContatos
+}
