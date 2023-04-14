@@ -14,6 +14,12 @@
  * 
  * Body-parser - É uma dependência que permite manipular dados enviados pelo body da requisição
  *        npm install body-parser --save
+ * 
+ * Para realizar a conexão com o banco de dados, iremos utilizar o Prisma
+ *        npm install prisma --save
+ *        npx prisma
+ *        npx init
+ *        npm instal @prisma/client
  */
 
 //Import das dependências para criar API
