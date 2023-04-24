@@ -5,6 +5,16 @@
  * Versão: 1.0
  */
 
+
+/*
+ * Para realizar a conexão com o banco de dados, iremos utilizar o Prisma
+ *        npm install prisma --save
+ *        npx prisma
+ *        npx prisma init
+ *        npm instal @prisma/client 
+ * 
+ */
+
 //Import das bibliotecas(dependências) do projeto
 
 const express = require('express')
@@ -41,6 +51,21 @@ app.use((request, response, next) => {
 //EndPoint: Retorna todos os dados de alunos 
 app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
 
+    //Import da controller do aluno
+    let controllerAluno = require('./controller/controller_aluno.js')
+
+    //Solicita a controller que retorne todos os alunos do BD
+    let dados = await controllerAluno.selecionarTodosAlunos()
+
+    //Valida se existem registros para retornar na requisição
+    if (dados) {
+        response.json(dados)
+        response.status(200)
+
+    } else {
+        response.json()
+        response.status(404)
+    }
 })
 
 //EndPoint: Retorna dados do aluno pelo ID
@@ -60,5 +85,10 @@ app.put('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 
 //EndPoint: Deleta um aluno pelo id
 app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+
+})
+
+app.listen(8080, function() {
+    console.log('Servidor aguardando requisições');
 
 })

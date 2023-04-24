@@ -30,11 +30,33 @@ const deleteAluno = function(id) {
 }
 
 //Função para retornar todos os registros do Banco de Dados
-const selectAllAluno = function() {
+const selectAllAluno = async function() {
+    //Impo da biblioteca do Prisma Client(Responsável por maniular dados no banco de dados)
+    const { PrismaClient } = require('@prisma/client')
 
+    //Intância da classe do prisma client
+    const prisma = new PrismaClient()
+
+    let sql = 'select * from tbl_aluno'
+
+    //Executa no banco de dados o scriptSQL
+    //$queryRawUnsafe é utilizado quando o scriptSQL está em uma variável
+    //$queryRaw é utilizado quando passar o script direto no métodos
+    //Ex: $queryRaw('select * from tbl_aluno')
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    //Valida se o banco de dados retonou algum registro
+    if (rsAluno.length > 0)
+        return rsAluno
+    else
+        return false
 }
 
 //Função para retornar um registro filtrado pelo id do Banco de Dados
 const selectByIdAluno = function(id) {
 
+}
+
+module.exports = {
+    selectAllAluno
 }
