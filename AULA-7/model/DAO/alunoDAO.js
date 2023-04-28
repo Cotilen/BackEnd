@@ -14,9 +14,37 @@
  * 
  */
 
-//Função para imserir um novo registro no Banco de Dados
-const insertAluno = function(dadosAluno) {
+//Import da biblioteca do Prisma Client(Responsável por maniular dados no banco de dados)
+const { PrismaClient } = require('@prisma/client')
 
+//Intância da classe do prisma client
+const prisma = new PrismaClient()
+
+//Função para imserir um novo registro no Banco de Dados
+const insertAluno = async function(dadosAluno) {
+
+    //Script sql para inserir os dados no BD
+    let sql = `insert into tbl_aluno(nome,
+        cpf,
+        rg,
+        data_nascimento,
+        email)
+        values
+        ('${dadosAluno.nome}',
+        '${dadosAluno.cpf}',
+        '${dadosAluno.rg}',
+        '${dadosAluno.data_nascimento}',
+        '${dadosAluno.email}'
+            )`
+
+    //Executa o script sql no banco de dados e recebemos o retorno se deu certo ou não
+    let result = await prisma.$executeRawUnsafe(sql)
+
+
+    if (result)
+        return true
+    else
+        return false
 }
 
 //Função para atualizar um registro do Banco de Dados
@@ -31,11 +59,7 @@ const deleteAluno = function(id) {
 
 //Função para retornar todos os registros do Banco de Dados
 const selectAllAluno = async function() {
-    //Impo da biblioteca do Prisma Client(Responsável por maniular dados no banco de dados)
-    const { PrismaClient } = require('@prisma/client')
 
-    //Intância da classe do prisma client
-    const prisma = new PrismaClient()
 
     let sql = 'select * from tbl_aluno'
 
@@ -58,5 +82,6 @@ const selectByIdAluno = function(id) {
 }
 
 module.exports = {
-    selectAllAluno
+    selectAllAluno,
+    insertAluno
 }

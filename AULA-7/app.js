@@ -48,11 +48,13 @@ app.use((request, response, next) => {
  * Versão: 1.0
  ***************************************************/
 
+//Import da controller do aluno
+const controllerAluno = require('./controller/controller_aluno.js')
+const bodyJSON = bodyParser.json()
+
 //EndPoint: Retorna todos os dados de alunos 
 app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
 
-    //Import da controller do aluno
-    let controllerAluno = require('./controller/controller_aluno.js')
 
     //Solicita a controller que retorne todos os alunos do BD
     let dados = await controllerAluno.selecionarTodosAlunos()
@@ -63,10 +65,14 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
         response.status(200)
 
     } else {
-        response.json()
         response.status(404)
+        response.json()
+
     }
 })
+
+//Criando uma const para realizar o processo de padronização de dados que vão chegar no body da requisição
+
 
 //EndPoint: Retorna dados do aluno pelo ID
 app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
@@ -74,7 +80,20 @@ app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 })
 
 //EndPoint: Inseri um novo aluno
-app.post('/v1/lion-school/aluno', cors(), async function(request, response) {
+app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, response) {
+
+    //Recebe os dados encaminhados no body da requisição
+    let dadosBody = request.body
+
+    //Envia os dados para a controller
+    let resultInsertDados = await controllerAluno.inserirAluno(dadosBody)
+
+    //Retorna o status code e a message
+    response.status(resultInsertDados.status)
+    response.json(resultInsertDados)
+
+
+
 
 })
 
