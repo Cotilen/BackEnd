@@ -52,8 +52,11 @@ app.use((request, response, next) => {
 const controllerAluno = require('./controller/controller_aluno.js')
 const bodyJSON = bodyParser.json()
 
+
+//Criando uma const para realizar o processo de padronização de dados que vão chegar no body da requisição
+
 //EndPoint: Retorna todos os dados de alunos 
-app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
+app.get('/v1/lion-school/aluno', cors(), async function (request, response) {
 
 
     //Solicita a controller que retorne todos os alunos do BD
@@ -71,26 +74,31 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
     }
 })
 
-//Criando uma const para realizar o processo de padronização de dados que vão chegar no body da requisição
-
-
 //EndPoint: Retorna dados do aluno pelo ID
-app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+app.get('/v1/lion-school/aluno/:id', cors(), async function (request, response) {
 
 })
 
 //EndPoint: Inseri um novo aluno
-app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, response) {
+app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function (request, response) {
 
-    //Recebe os dados encaminhados no body da requisição
-    let dadosBody = request.body
+    let contentType = request.headers['content-type']
 
-    //Envia os dados para a controller
-    let resultInsertDados = await controllerAluno.inserirAluno(dadosBody)
+    if (String(contentType).toLowerCase() == 'application/json') {
+        //Recebe os dados encaminhados no body da requisição
+        let dadosBody = request.body
 
-    //Retorna o status code e a message
-    response.status(resultInsertDados.status)
-    response.json(resultInsertDados)
+        //Envia os dados para a controller
+        let resultInsertDados = await controllerAluno.inserirAluno(dadosBody)
+
+        //Retorna o status code e a message
+        response.status(resultInsertDados.status)
+        response.json(resultInsertDados)
+    } else {
+
+    }
+
+
 
 
 
@@ -98,13 +106,13 @@ app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, resp
 })
 
 //EndPoint: Atualiza um aluno pelo id
-app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
+app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function (request, response) {
     //Recebe os dados do Body
-    let dadosBody = request.body    
+    let dadosBody = request.body
 
     //Recebe o id do aluno
     let idAluno = request.params.id
-    let resultUpdatedados = await controllerAluno.atualizarAlunos(dadosBody,idAluno)
+    let resultUpdatedados = await controllerAluno.atualizarAlunos(dadosBody, idAluno)
 
     response.status(resultUpdatedados.status)
     response.json(resultUpdatedados)
@@ -112,21 +120,21 @@ app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, r
 })
 
 //EndPoint: Deleta um aluno pelo id
-app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
+app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function (request, response) {
     //Recebe os dados do Body
     let dadosBody = request.body
 
     //Recebe o id do aluno
     let idAluno = request.params.id
 
-    let resultDeleteDados = await controllerAluno.deletarAlunos(dadosBody,idAluno)
+    let resultDeleteDados = await controllerAluno.deletarAlunos(dadosBody, idAluno)
 
     response.status(resultDeleteDados.status)
     response.json(resultDeleteDados)
 
 })
 
-app.listen(8080, function() {
+app.listen(8080, function () {
     console.log('Servidor aguardando requisições');
 
 })
