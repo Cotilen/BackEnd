@@ -98,7 +98,16 @@ app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, resp
 })
 
 //EndPoint: Atualiza um aluno pelo id
-app.put('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
+    //Recebe os dados do Body
+    let dadosBody = request.body
+
+    //Recebe o id do aluno
+    let idAluno = request.params.id
+    let resultUpdatedados = await controllerAluno.atualizarAlunos(dadosBody,idAluno)
+
+    response.status(resultUpdatedados.status)
+    response.json(resultUpdatedados)
 
 })
 

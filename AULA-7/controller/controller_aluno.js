@@ -5,14 +5,15 @@
  * Versão: 1.0
  ************************************************************************************/
 
-//Import do arquivo de acesso ao BD
-const alunoDAO = require('../model/DAO/alunoDAO.js')
+    //Import do arquivo de acesso ao BD
+    const alunoDAO = require('../model/DAO/alunoDAO.js')
+
+    //Import do arquivo de glodal de configurações do projeto
+    const message = require('./modulo/config.js')
 
 //Função para receber os dados do APP e enviar para a Model para inderir um novo item
 const inserirAluno = async function(dadosAluno) {
 
-    //Import do arquivo de glodal de configurações do projeto
-    let message = require('./modulo/config.js')
 
     if (dadosAluno.nome == undefined || dadosAluno.nome == '' || dadosAluno.nome.length > 100 ||
         dadosAluno.cpf == undefined || dadosAluno.cpf == '' || dadosAluno.cpf.length > 18 ||
@@ -35,8 +36,35 @@ const inserirAluno = async function(dadosAluno) {
 }
 
 //Função para receber os dados do APP e enviar para a Model para atualizar um item existente
-const atualizarAlunos = function(dadosAluno) {
+const atualizarAlunos = async function(dadosAluno,idAluno) {
 
+    //Validação de dados
+    if (dadosAluno.nome == undefined || dadosAluno.nome == '' || dadosAluno.nome.length > 100 ||
+    dadosAluno.cpf == undefined || dadosAluno.cpf == '' || dadosAluno.cpf.length > 18 ||
+    dadosAluno.rg == undefined || dadosAluno.rg == '' || dadosAluno.rg.length > 15 ||
+    dadosAluno.data_nascimento == undefined || dadosAluno.data_nascimento == '' || dadosAluno.data_nascimento.length > 10 ||
+    dadosAluno.email == undefined || dadosAluno.email == '' || dadosAluno.email.length > 250
+) {
+    return message.ERROR_REQUIRED_DATA
+
+    //Validação para o id
+} else if(idAluno =='' || idAluno == undefined || isNaN(idAluno)) {
+    return message.ERROR_REQUIRED_ID
+
+}else{
+    //Adiciona o ID no JSON com todos os dados
+    dadosAluno.id = idAluno
+
+    //Encaminha para o DAO os dados para serem alterados
+    let status = await alunoDAO.updateAluno
+
+    if(status){
+        return message.UPDATED_ITEM
+    }else{
+        return message.ERROR_INTERNAL_SERVER
+
+    }
+}
 }
 
 //Função para excluir um aluno filtrado pelo ID, será encaminhado para a Model
@@ -71,5 +99,6 @@ const buscarIdAluno = function(id) {
 
 module.exports = {
     selecionarTodosAlunos,
-    inserirAluno
+    inserirAluno,
+    atualizarAlunos
 }
