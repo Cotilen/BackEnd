@@ -13,11 +13,13 @@ const ERROR_REQUIRED_ID = { status: 400, message: 'O atributo id é obrigatório
 //Constantes de sucessos
 const CREATED_ITEM = { status: 201, message: 'Registro criado com sucesso' }
 const UPDATED_ITEM = { status: 200, message: 'Registro atualizado com sucesso' }
+const DELETED_ITEM = { status: 200, message: 'Registro deletado com sucesso' }
 
 module.exports = {
     ERROR_INTERNAL_SERVER,
     ERROR_REQUIRED_DATA,
     ERROR_REQUIRED_ID,
     CREATED_ITEM,
-    UPDATED_ITEM
+    UPDATED_ITEM,
+    DELETED_ITEM
 }

@@ -100,7 +100,7 @@ app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, resp
 //EndPoint: Atualiza um aluno pelo id
 app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
     //Recebe os dados do Body
-    let dadosBody = request.body
+    let dadosBody = request.body    
 
     //Recebe o id do aluno
     let idAluno = request.params.id
@@ -112,7 +112,17 @@ app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, r
 })
 
 //EndPoint: Deleta um aluno pelo id
-app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
+    //Recebe os dados do Body
+    let dadosBody = request.body
+
+    //Recebe o id do aluno
+    let idAluno = request.params.id
+
+    let resultDeleteDados = await controllerAluno.deletarAlunos(dadosBody,idAluno)
+
+    response.status(resultDeleteDados.status)
+    response.json(resultDeleteDados)
 
 })
 

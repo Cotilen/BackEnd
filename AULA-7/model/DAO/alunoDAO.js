@@ -70,7 +70,18 @@ else
 
 
 //Função para deletar um registro do Banco de Dados
-const deleteAluno = function(id) {
+const deleteAluno = async function(id) {
+
+    let sql = `delete from tbl_aluno where id=${id}`
+
+    let result = await prisma.$queryRawUnsafe(sql)
+
+//Valida se o banco de dados retonou algum registro
+if (result)
+    return true
+else
+    return false
+
 
 }
 
@@ -101,5 +112,6 @@ const selectByIdAluno = function(id) {
 module.exports = {
     selectAllAluno,
     insertAluno,
-    updateAluno
+    updateAluno,
+    deleteAluno
 }

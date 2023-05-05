@@ -68,7 +68,22 @@ const atualizarAlunos = async function(dadosAluno,idAluno) {
 }
 
 //Função para excluir um aluno filtrado pelo ID, será encaminhado para a Model
-const deletarAlunos = function(id) {
+const deletarAlunos = async function(dadosAluno,id) {    
+
+    if(id =='' || id == undefined || isNaN(id)) {
+        return message.ERROR_REQUIRED_ID
+    }else{
+        let status = await alunoDAO.deleteAluno(id)        
+
+        dadosAluno.id = id
+
+        if(status){
+            return message.DELETED_ITEM
+        }else{
+            return message.ERROR_INTERNAL_SERVER
+    
+        }
+    }
 
 }
 
@@ -100,5 +115,6 @@ const buscarIdAluno = function(id) {
 module.exports = {
     selecionarTodosAlunos,
     inserirAluno,
-    atualizarAlunos
+    atualizarAlunos,
+    deletarAlunos
 }
