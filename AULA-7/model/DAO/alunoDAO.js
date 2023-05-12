@@ -137,11 +137,31 @@ const selectLastId = async function() {
         return false
 }
 
+const selectByNameAluno = async function(name) {
+
+
+    let sql = `select * from tbl_aluno where nome like "%${name}%"`
+
+    //Executa no banco de dados o scriptSQL
+    //$queryRawUnsafe é utilizado quando o scriptSQL está em uma variável
+    //$queryRaw é utilizado quando passar o script direto no métodos
+    //Ex: $queryRaw('select * from tbl_aluno')
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    //Valida se o banco de dados retonou algum registro
+    if (rsAluno.length > 0)
+        return rsAluno
+    else
+        return false
+}
+
+
 module.exports = {
     selectAllAluno,
     insertAluno,
     updateAluno,
     deleteAluno,
     selectByIdAluno,
-    selectLastId
+    selectLastId,
+    selectByNameAluno
 }

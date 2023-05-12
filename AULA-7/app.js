@@ -84,6 +84,20 @@ app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
     response.json(dados)
 })
 
+app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
+
+    //Recebe o id enviado na requisição
+    let name = request.query.name
+
+    //Solicita a controller que retorne todos os alunos do BD
+    let dados = await controllerAluno.buscarNameAluno(name)
+
+    //Valida se existem registros para retornar na requisição
+    response.status(dados.status)
+
+    response.json(dados)
+})
+
 //EndPoint: Inseri um novo aluno
 app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, response) {
 

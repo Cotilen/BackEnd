@@ -11,6 +11,7 @@ const ERROR_INTERNAL_SERVER = { status: 500, message: 'Erro interno no servidor 
 const ERROR_REQUIRED_ID = { status: 400, message: 'O atributo id é obrigatório na requisição.' }
 const ERROR_INVALID_CONTENT_TYPE = { status: 415, message: 'Tipo de mídia {content-type}  da solicitação não é compatível com o sevidor, application/json' }
 const ERROR_NOT_FOUND = { status: 404, message: 'Nenhum registro encontrado na requisição.' }
+const ERROR_REQUIRED_NAME = { status: 400, message: 'O atributo nome é obrigatório na requisição.' }
 
 
 //Constantes de sucessos
@@ -26,5 +27,6 @@ module.exports = {
     UPDATED_ITEM,
     DELETED_ITEM,
     ERROR_INVALID_CONTENT_TYPE,
-    ERROR_NOT_FOUND
+    ERROR_NOT_FOUND,
+    ERROR_REQUIRED_NAME
 }

@@ -152,10 +152,36 @@ const buscarIdAluno = async function(id) {
 
 }
 
+const buscarNameAluno = async function(name) {
+
+    //Validação para o ID
+    if (id == '' || id == undefined)
+        return message.ERROR_REQUIRED_NAME
+    else {
+        //Solicita ao DAO todos os alunos do BD
+        let dadosAluno = await alunoDAO.selectByNameAluno(name)
+
+        //Cria um objeto do tipo json
+        let dadosJson = {}
+
+        //Valida se BD teve registros
+        if (dadosAluno) {
+            //Adiciona o array de alunos em um JSON para retornar ao app
+            dadosJson.status = 200
+            dadosJson.Alunos = dadosAluno
+            return dadosJson
+        } else {
+            return message.ERROR_NOT_FOUND
+        }
+    }
+
+}
+
 module.exports = {
     selecionarTodosAlunos,
     inserirAluno,
     atualizarAlunos,
     deletarAlunos,
-    buscarIdAluno
+    buscarIdAluno,
+    buscarNameAluno
 }
