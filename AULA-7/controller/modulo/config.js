@@ -10,6 +10,8 @@ const ERROR_REQUIRED_DATA = { status: 400, message: 'Existem dados obrigatórios
 const ERROR_INTERNAL_SERVER = { status: 500, message: 'Erro interno no servidor de banco de dados' }
 const ERROR_REQUIRED_ID = { status: 400, message: 'O atributo id é obrigatório na requisição.' }
 const ERROR_INVALID_CONTENT_TYPE = { status: 415, message: 'Tipo de mídia {content-type}  da solicitação não é compatível com o sevidor, application/json' }
+const ERROR_NOT_FOUND = { status: 404, message: 'Nenhum registro encontrado na requisição.' }
+
 
 //Constantes de sucessos
 const CREATED_ITEM = { status: 201, message: 'Registro criado com sucesso' }
@@ -22,5 +24,7 @@ module.exports = {
     ERROR_REQUIRED_ID,
     CREATED_ITEM,
     UPDATED_ITEM,
-    DELETED_ITEM
+    DELETED_ITEM,
+    ERROR_INVALID_CONTENT_TYPE,
+    ERROR_NOT_FOUND
 }

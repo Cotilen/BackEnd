@@ -57,14 +57,15 @@ const updateAluno = async function(dadosAluno) {
     email='${dadosAluno.email}'
     where id = '${dadosAluno.id}'`
 
-    
-let result = await prisma.$queryRawUnsafe(sql)
 
-//Valida se o banco de dados retonou algum registro
-if (result.length > 0)
-    return result
-else
-    return false
+    let result = await prisma.$queryRawUnsafe(sql)
+
+
+    //Valida se o banco de dados retonou algum registro
+    if (result)
+        return true
+    else
+        return false
 
 }
 
@@ -76,11 +77,11 @@ const deleteAluno = async function(id) {
 
     let result = await prisma.$queryRawUnsafe(sql)
 
-//Valida se o banco de dados retonou algum registro
-if (result)
-    return true
-else
-    return false
+    //Valida se o banco de dados retonou algum registro
+    if (result)
+        return true
+    else
+        return false
 
 
 }
@@ -105,13 +106,42 @@ const selectAllAluno = async function() {
 }
 
 //Função para retornar um registro filtrado pelo id do Banco de Dados
-const selectByIdAluno = function(id) {
+const selectByIdAluno = async function(id) {
 
+
+    let sql = `select * from tbl_aluno where id = ${id}`
+
+    //Executa no banco de dados o scriptSQL
+    //$queryRawUnsafe é utilizado quando o scriptSQL está em uma variável
+    //$queryRaw é utilizado quando passar o script direto no métodos
+    //Ex: $queryRaw('select * from tbl_aluno')
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    //Valida se o banco de dados retonou algum registro
+    if (rsAluno.length > 0)
+        return rsAluno
+    else
+        return false
+}
+
+const selectLastId = async function() {
+
+    //Script para retornar apenas o ultimo registro inserido na tabela
+    let sql = `select id from tbl_aluno order by id desc limit 1;`
+
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    if (rsAluno.length > 0)
+        return rsAluno[0].id
+    else
+        return false
 }
 
 module.exports = {
     selectAllAluno,
     insertAluno,
     updateAluno,
-    deleteAluno
+    deleteAluno,
+    selectByIdAluno,
+    selectLastId
 }

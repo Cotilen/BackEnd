@@ -51,36 +51,41 @@ app.use((request, response, next) => {
 //Import da controller do aluno
 const controllerAluno = require('./controller/controller_aluno.js')
 const bodyJSON = bodyParser.json()
+const message = require('./controller/modulo/config.js')
 
 
 //Criando uma const para realizar o processo de padronização de dados que vão chegar no body da requisição
 
 //EndPoint: Retorna todos os dados de alunos 
-app.get('/v1/lion-school/aluno', cors(), async function (request, response) {
+app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
 
 
     //Solicita a controller que retorne todos os alunos do BD
     let dados = await controllerAluno.selecionarTodosAlunos()
 
     //Valida se existem registros para retornar na requisição
-    if (dados) {
-        response.json(dados)
-        response.status(200)
+    response.status(dados.status)
 
-    } else {
-        response.status(404)
-        response.json()
-
-    }
+    response.json(dados)
 })
 
 //EndPoint: Retorna dados do aluno pelo ID
-app.get('/v1/lion-school/aluno/:id', cors(), async function (request, response) {
+app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 
+    //Recebe o id enviado na requisição
+    let idAluno = request.params.id
+
+    //Solicita a controller que retorne todos os alunos do BD
+    let dados = await controllerAluno.buscarIdAluno(idAluno)
+
+    //Valida se existem registros para retornar na requisição
+    response.status(dados.status)
+
+    response.json(dados)
 })
 
 //EndPoint: Inseri um novo aluno
-app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function (request, response) {
+app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, response) {
 
     let contentType = request.headers['content-type']
 
@@ -96,31 +101,32 @@ app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function (request, res
         response.json(resultInsertDados)
     } else {
 
+        return message.ERROR_INVALID_CONTENT_TYPE
     }
-
-
-
-
-
-
 })
 
 //EndPoint: Atualiza um aluno pelo id
-app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function (request, response) {
-    //Recebe os dados do Body
-    let dadosBody = request.body
+app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
+    let contentType = request.headers['content-type']
 
-    //Recebe o id do aluno
-    let idAluno = request.params.id
-    let resultUpdatedados = await controllerAluno.atualizarAlunos(dadosBody, idAluno)
+    if (String(contentType).toLowerCase() == 'application/json') {
+        //Recebe os dados do Body
+        let dadosBody = request.body
 
-    response.status(resultUpdatedados.status)
-    response.json(resultUpdatedados)
+        //Recebe o id do aluno
+        let idAluno = request.params.id
+        let resultUpdatedados = await controllerAluno.atualizarAlunos(dadosBody, idAluno)
 
+        response.status(resultUpdatedados.status)
+        response.json(resultUpdatedados)
+    } else {
+
+        return message.ERROR_INVALID_CONTENT_TYPE
+    }
 })
 
 //EndPoint: Deleta um aluno pelo id
-app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function (request, response) {
+app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response) {
     //Recebe os dados do Body
     let dadosBody = request.body
 
@@ -134,7 +140,7 @@ app.delete('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function (reques
 
 })
 
-app.listen(8080, function () {
+app.listen(8080, function() {
     console.log('Servidor aguardando requisições');
 
 })
